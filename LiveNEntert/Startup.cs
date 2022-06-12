@@ -1,6 +1,7 @@
 using LiveNEntert.Api.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -22,7 +23,15 @@ namespace LiveNEntert
         {
             services.AddRepositories();
             services.AddDomainServices();
-            services.AddControllers();
+            services.AddResponseCaching();
+            services.AddControllers(options =>
+                     {
+                         options.CacheProfiles.Add("Default30",
+                             new CacheProfile()
+                             {
+                                 Duration = 30
+                             });
+                     });
             services.AddAutoMapper(typeof(Startup));
             services.AddSwaggerGen(c =>
             {

@@ -29,7 +29,7 @@ namespace LiveNEntert.Api.Controllers
         }
 
         [HttpGet]
-        public LiveNationOutput GetSummary([FromQuery] int a, int b)
+        public LiveNationOutput GetSummary([FromQuery] int a = 0, int b = 1)
         {
             var sum = new Summary();
             var payload = _summaryService.GetSummary(a, b, sum);
